@@ -31,7 +31,7 @@ How the single-volume adaptation works: `Dockerfile` extends the official `ghcr.
 
 Notes and limits:
 
-- **RAM requirement:** about 0.4 GB with one station on air, but a station needs **1 GB** to start. The Trial and Hobby plans work; on the Free plan (0.5 GB) the dashboard runs but stations stay offline.
+- **RAM requirement:** about 0.4 GB with one station on air, but a station needs **1 GB** to start. The Trial and Hobby plans work; the Free plan (0.5 GB) can't run a station, so there the template shows a page saying so instead of starting AzuraCast.
 - **Live DJ via external encoders** (BUTT, Mixxx) needs a Railway TCP proxy to the station's Icecast port; browser WebDJ works out of the box.
 - **SFTP uploads** (port 2022) also need a TCP proxy; the web uploader works without one.
 - **Transcoding is CPU-only** (no GPU on Railway) — fine for typical radio bitrates.

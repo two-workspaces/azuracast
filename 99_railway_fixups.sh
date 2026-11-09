@@ -16,11 +16,9 @@ ln -sfn /data/liquidsoap_user_cache /var/azuracast/www_tmp/liquidsoap_cache
 mem=$(cat /sys/fs/cgroup/memory.max 2>/dev/null)
 case "$mem" in ''|max) mem=999999999999 ;; esac
 
-if [ "$mem" -lt 900000000 ]; then
-  # Railway's Free plan caps a service at 0.5 GB. The web UI fits, but a
-  # station's Liquidsoap needs more to start and is OOM-killed in a loop.
-  echo "WARNING: this service is limited to $((mem / 1000000)) MB of RAM. Stations need about 1 GB to start; on 0.5 GB (Railway's Free plan) they stay offline."
-else
+# Under 0.9 GB, 00_0_railway_gate.sh served a "needs 1 GB" page and nothing
+# below runs, so only bigger services get here.
+if [ "$mem" -ge 900000000 ]; then
   # The standard-library cache baked into the image doesn't match this host,
   # so a station's first start compiles it: a ~760 MB spike on top of the
   # running services, OOM-killing the station on a 1 GB plan. Build it now,

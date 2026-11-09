@@ -15,8 +15,9 @@ ENV ENABLE_WEB_UPDATER=false
 RUN sed -i 's/^worker_processes auto;/worker_processes 2;/' /etc/nginx/nginx.conf.tmpl \
     && grep -q '^worker_processes 2;' /etc/nginx/nginx.conf.tmpl
 
+COPY 00_0_railway_gate.sh /etc/my_init.d/00_0_railway_gate.sh
 COPY 00_railway_volumes.sh /etc/my_init.d/00_railway_volumes.sh
 COPY 99_railway_fixups.sh /etc/my_init.d/99_railway_fixups.sh
 COPY drop-file-cache /usr/local/bin/drop-file-cache
 COPY drop-file-cache.conf /etc/supervisor/full.conf.d/drop-file-cache.conf
-RUN chmod +x /etc/my_init.d/00_railway_volumes.sh /etc/my_init.d/99_railway_fixups.sh /usr/local/bin/drop-file-cache
+RUN chmod +x /etc/my_init.d/00_0_railway_gate.sh /etc/my_init.d/00_railway_volumes.sh /etc/my_init.d/99_railway_fixups.sh /usr/local/bin/drop-file-cache
